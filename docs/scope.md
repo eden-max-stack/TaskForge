@@ -1,4 +1,4 @@
-# TaskForge: Multi-Tenant Project Management SaaS Application
+# TaskForge: Multi-Tenant Project Management SaaS Application SCOPE DOCUMENT
 
 ## Problem Statement
 
@@ -48,15 +48,15 @@ This project is not intended for solo devs looking to track their work.
   - An "archived" project means that a project is not being retrieved often.
   - A "deleted" project will be tracked in the project history, but will no longer exist in the DB
 
-### PROJECT MEMBERS
+### PROJECT USERS
 
-- A **project member** is an organization member who is part of a specific project
-- A project member is assigned one out of 2 roles: PROJ_DEVELOPER | MANAGER (manager has elevated rights)
+- A **project user** is an organization member who is part of a specific project
+- A project user is assigned one out of 2 roles: PROJ_MEMBER | PROJ_MANAGER (manager has elevated rights)
 
 ### PROJECT ACTIVITY
 
-- An **activity** within a project is an event performed by any project member
-- Examples include updating task progress, modifying project metadata, CRUD of project members, CRUD of buckets
+- An **activity** within a project is an event performed by any project user
+- Examples include updating task progress, modifying project metadata, CRUD of project user, CRUD of buckets
 
 ### PROJECT HISTORY
 
@@ -65,8 +65,8 @@ This project is not intended for solo devs looking to track their work.
   - CRUD of buckets
   - CRUD of tasks (inclusive of sub-tasks)
   - Updation/Deletion of project (inclusive of project metadata)
-  - CRUD of project members, and their access rights
-- A log within the project history tracks: activity title, type of activity, member who performed the activity, event time
+  - CRUD of project users, and their access rights
+- A log within the project history tracks: activity title, member who performed the activity, event time
 - Project history is immutable, and append-only.
 - It is automatically tracked and written to through backend jobs
 
@@ -89,14 +89,14 @@ This project is not intended for solo devs looking to track their work.
 - A **sub-task** is a smaller task within a task
 - A sub-task contains only the title of the sub-task
 - A sub-task cannot have sub-tasks of its own
-- It does not contain metadata such as due_date or comments
+- It does not contain metadata such as due_date, assgined_to, or comments
 
 ### COMMENTS
 
-- **Comments** are written by any project member under a specific project task
+- **Comments** are written by any project user under a specific project task
 - Multiple comments can be written for a specific task
 - No threads of comments can be created for any task; each comment is a stand-alone comment (there can be no replies to any comment)
-- Members can @ any other project member within a comment
+- Members can @ any other project user within a comment
 
 ## Core Features (v1)
 
@@ -159,14 +159,14 @@ There is no separate database per organization. Data isolation is enforced at ap
 2. ORG_ADMIN: Organization admins are allowed to
    - CRUD of organization members
      atop all access rights of organization members
-3. PROJ_DEVELOPER: Project developers are allowed to
+3. PROJ_MEMBER: Project members are allowed to
    - CRUD of tasks
    - Comments on all tasks within project
    - View project history
 4. PROJ_MANAGER: Project managers are allowed to
    - RUD of projects
    - CRUD of buckets
-   - CRUD of organization_members (add organization members into project, remove project members from project)
+   - CRUD of organization_members (add organization members into project, remove project users from project)
 
 ## Data Integrity Rules
 
@@ -179,8 +179,8 @@ There is no separate database per organization. Data isolation is enforced at ap
 - Comments are stand-alone, and cannot have replies.
 - A project can only have upto 10 buckets.
 - Bucket names must be unique per project
-- A user can be PROJ_MANAGER within 1 project and a PROJ_DEVELOPER within another
-- PROJ_MEMBERS cannot exist outside of an organization
+- A user can be PROJ_MANAGER within 1 project and a PROJ_MEMBER within another
+- Project users cannot exist outside of an organization
 
 ## Scalability Assumptions
 
