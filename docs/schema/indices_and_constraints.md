@@ -103,3 +103,7 @@ To view all metadata specific to task
 To view all comments in the task modal
 
 1. INDEX(task_id, created_at ASC) on COMMENTS
+
+### View all comments created by user
+
+1. INDEX(created_by) on COMMENTS

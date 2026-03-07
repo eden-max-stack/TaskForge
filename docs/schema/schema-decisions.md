@@ -22,7 +22,7 @@ schema_name
 
 ## All Schemas with fields and constraints
 
-### ORGANIZATION
+### ORGANIZATIONS
 
 1. org_id: str (PK)
 2. org_name: str
@@ -60,7 +60,7 @@ schema_name
 3. role: "PROJ_MEMBER" || "PROJ_MANAGER"
 4. UNIQUE (proj_id, user_id) (PK)
 
-### BUCKET
+### BUCKETS
 
 1. bucket_id: str (PK)
 2. bucket_name: str
@@ -68,7 +68,7 @@ schema_name
 4. UNIQUE (proj_id, bucket_name)
 5. created_at: DateTime
 
-### TASK
+### TASKS
 
 1. task_id: str (PK)
 2. task_title: str
@@ -81,7 +81,7 @@ schema_name
 9. desc: Optional[str]
 10. created_at: DateTime
 
-### SUBTASK
+### SUBTASKS
 
 1. subtask_id: str (PK)
 2. subtask_title: str
@@ -92,21 +92,21 @@ schema_name
 
 1. comment_id: str (PK)
 2. comment_content: str
-3. user_id: str (FK)
+3. created_by: str (FK)
 4. task_id: str (FK)
 5. created_at: DateTime
 
 ### COMMENT_MENTIONS
 
 1. comment_id: str (FK)
-2. user_id: str (FK)
-3. PK (comment_id, user_id)
+2. mentioned_user_id: str (FK)
+3. PK (comment_id, mentioned_user_id)
 
-### PROJECT_ACTIVITY
+### PROJECT_ACTIVITIES
 
 1. proj_id: str (FK)
 2. activity_id: str (PK)
 3. activity_title: str
 4. activity_desc: str
-5. user_id: str (FK)
-6. time: DateTime
+5. done_by: str (FK)
+6. done_at: DateTime
