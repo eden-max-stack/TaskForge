@@ -88,7 +88,7 @@ CREATE TABLE comments (
     comment_id VARCHAR(255) PRIMARY KEY,
     comment_content TEXT NOT NULL,
     created_by VARCHAR(255) NOT NULL REFERENCES users (user_id),
-    created_at TIMESTAMPTZ NOT NULL,
+         TIMESTAMPTZ NOT NULL,
     task_id VARCHAR(255) NOT NULL REFERENCES tasks (task_id)
 )
 
