@@ -88,7 +88,7 @@ CREATE TABLE comments (
     comment_id VARCHAR(255) PRIMARY KEY,
     comment_content TEXT NOT NULL,
     created_by VARCHAR(255) NOT NULL REFERENCES users (user_id),
-         TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL,
     task_id VARCHAR(255) NOT NULL REFERENCES tasks (task_id)
 )
 
@@ -116,12 +116,17 @@ CREATE UNIQUE INDEX unique_proj_manager ON proj_users (proj_id) WHERE role = 'PR
 
 CREATE INDEX idx_proj_bucket_tasks ON tasks (proj_id, bucket_id);
 CREATE INDEX idx_tasks_assigned_to ON tasks (assigned_to);
-CREATE INDEX idx_tasks_status ON tasks (proj_id, status);
+CREATE INDEX idx_tasks_status ON tasks (proj_id, status);\
+
+CREATE INDEX idx_buckets_per_proj ON buckets (proj_id);
 
 
 CREATE INDEX idx_comments_task_id ON comments (task_id);
 CREATE INDEX idx_comments_mentioned ON comment_mentions (mentioned_user_id);
 CREATE INDEX idx_comments_created_by ON comments (created_by);
+CREATE INDEX idx_comments_created_at ON comments (created_at);
 
 CREATE INDEX idx_proj_activities ON project_activities (proj_id, created_at);
 CREATE INDEX idx_proj_specific_to_org ON projects (org_id, status, created_at);
+
+CREATE INDEX idx_subtasks_task_id ON subtasks (task_id);

@@ -126,3 +126,25 @@ SELECT
     'user_' || LPAD((floor(random()* 10) + 1)::text,4,'0')
 FROM comments
 WHERE random() < 0.5;
+
+-- seeding project activities - 2 activities per project
+INSERT INTO project_activities 
+(activity_id, proj_id, activity_title, activity_desc, done_by, done_at) 
+SELECT
+    'activity_' || LPAD(row_number() OVER ()::text,4,'0'),
+    p.proj_id,
+    'Activity ' || row_number() OVER (),
+    'Activity Description ' || row_number() OVER (),
+    pu.user_id,
+    NOW() - (random() * INTERVAL '30 days')
+
+FROM projects p
+CROSS JOIN generate_series(1,2)
+
+JOIN LATERAL (
+    SELECT user_id
+    FROM proj_users
+    WHERE proj_users.proj_id = p.proj_id
+    ORDER BY random()
+    LIMIT 1
+) pu ON TRUE;
