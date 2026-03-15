@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.routers.organizations_router import router as organizations_router
+
 app = FastAPI(title="TaskForge backend")
 
 app.add_middleware(
@@ -11,3 +13,4 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+app.include_router(organizations_router)
