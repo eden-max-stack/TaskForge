@@ -7,7 +7,7 @@ from src.shared.models import APIResponse
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 class LoginResponse(BaseModel):
-    user_name: str
+    user_id: str
 
 class SignUpResponse(BaseModel):
     user_id: str

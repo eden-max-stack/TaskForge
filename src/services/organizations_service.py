@@ -4,9 +4,9 @@ from src.db.supabase_client import supabase
 class OrganizationService:
     def __init__(self):
         self.db = supabase
-
-    def list_organizations(self):
-        response = self.db.table("organizations").select("*").execute()
+    
+    def list_organizations_by_user(self, user_id: str):
+        response = self.db.table("org_users").select("*").eq("user_id", user_id).execute()
         return response.data
     
     def create_organization(self, organization_data: OrganizationCreate):

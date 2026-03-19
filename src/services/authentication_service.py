@@ -10,7 +10,9 @@ class AuthenticationService:
             "email": login_data.email_id,
             "password": login_data.pswd
         })
-        return response.data
+        return {
+            "user_id": response.user.id
+        }
     
     def sign_up(self, sign_up_data: SignUpRequest):
         response = self.db.auth.sign_up({
